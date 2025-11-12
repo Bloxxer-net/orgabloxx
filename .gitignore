@@ -1,0 +1,5 @@
+config.php
+uploads/
+.DS_Store
+node_modules/
+/vendor/
