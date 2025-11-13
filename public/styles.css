@@ -21,8 +21,6 @@ body {
 }
 
 .hidden { display: none; }
-.tab-pane { display: none; }
-.tab-pane.active { display: block; }
 
 .card {
     background: #fff;
