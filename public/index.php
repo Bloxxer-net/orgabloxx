@@ -1,9 +1,13 @@
 <?php
 declare(strict_types=1);
 
+session_start();
+
 if (!file_exists(__DIR__ . '/../config.php')) {
     die('config.php fehlt. Kopiere config.sample.php und passe die Zugangsdaten an.');
 }
+
+$isLoggedIn = isset($_SESSION['user']);
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -15,7 +19,7 @@ if (!file_exists(__DIR__ . '/../config.php')) {
 </head>
 <body>
 <div id="app">
-    <div id="auth-view" class="card">
+    <div id="auth-view" class="card<?= $isLoggedIn ? ' hidden' : '' ?>">
         <h1>Projekt-Organizer</h1>
         <div class="tabs">
             <button data-tab="login" class="active">Login</button>
@@ -47,7 +51,7 @@ if (!file_exists(__DIR__ . '/../config.php')) {
         </div>
     </div>
 
-    <div id="main-view" class="hidden">
+    <div id="main-view" class="<?= $isLoggedIn ? '' : 'hidden' ?>">
         <aside id="sidebar">
             <div class="sidebar-header">
                 <h2>Projekte</h2>

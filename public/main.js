@@ -128,6 +128,10 @@ const renderDocuments = () => {
 const openDocument = async (docId) => {
     const data = await api('document', { query: `&id=${docId}` });
     state.currentDocument = data.document;
+<<<<<<< codex/develop-web-app-with-php-backend-and-js-frontend-3s9a1q
+    state.currentDocument.blocks = state.currentDocument.blocks || [];
+=======
+>>>>>>> main
     documentTitle.textContent = data.document.title;
     editorSection.classList.remove('hidden');
     renderBlocks();
@@ -156,7 +160,12 @@ const createDocument = async () => {
 const renderBlocks = () => {
     leftColumn.innerHTML = '';
     rightColumn.innerHTML = '';
+<<<<<<< codex/develop-web-app-with-php-backend-and-js-frontend-3s9a1q
+    const blocks = state.currentDocument?.blocks || [];
+    blocks.forEach((block) => {
+=======
     state.currentDocument.blocks.forEach((block) => {
+>>>>>>> main
         leftColumn.appendChild(createBlockElement(block, 'left'));
         rightColumn.appendChild(createBlockElement(block, 'right'));
     });
@@ -222,10 +231,24 @@ const saveBlock = async (blockId, side, value) => {
 
 const addBlock = async () => {
     if (!state.currentDocument) return;
+<<<<<<< codex/develop-web-app-with-php-backend-and-js-frontend-3s9a1q
+    addBlockButton.disabled = true;
+    try {
+        const position = (state.currentDocument.blocks?.length || 0) + 1;
+        await api('block', { method: 'POST', body: { document_id: state.currentDocument.id, position } });
+        await openDocument(state.currentDocument.id);
+    } catch (error) {
+        console.error(error);
+        alert('Neuer Abschnitt konnte nicht erstellt werden.');
+    } finally {
+        addBlockButton.disabled = false;
+    }
+=======
     const position = state.currentDocument.blocks.length + 1;
     const data = await api('block', { method: 'POST', body: { document_id: state.currentDocument.id, position } });
     state.currentDocument.blocks.push(data.block);
     renderBlocks();
+>>>>>>> main
 };
 
 const deleteBlock = async (blockId) => {
